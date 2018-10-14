@@ -72,7 +72,7 @@ Fetched in submodule path 'external/libigl', but it did not contain 03536c4aa44a
    ```
 3. Update the path in the `.gitmodules` file
     ```
-    sed -i 's|libigl/libigl.git|libigl/libigl-legacy.git|' .gitmodules
+    sed -i '' 's|libigl/libigl.git|libigl/libigl-legacy.git|' .gitmodules
     ```
 4. Update local configuration of your submodule repos with the new URL
     ```
