@@ -38,7 +38,7 @@ If you have an old code the depends on a specific version of libigl, simply upda
 
 ### Troubleshooting
 
-If you are getting the following error when trying to clone a repository:
+You may get an error similar to the following when trying to clone a project repository with a submodule pointing to a commit of libigl before **_14 October 2018_**:
 
 ```
 Submodule 'libigl' (git@github.com:libigl/libigl.git) registered for path 'external/libigl'
@@ -47,38 +47,29 @@ error: Server does not allow request for unadvertised object 03536c4aa44a399ed71
 Fetched in submodule path 'external/libigl', but it did not contain 03536c4aa44a399ed7134b68f04cf3773edebc73. Direct fetching of that commit failed.
 ```
 
-#### Steps to reproduce the problem:
+If you're hosting the project repository on github, then the easiest way to fix this is to click `.gitmodules` then edit in the browser (pencil icon in top right). Change `libigl/libigl.git` to `libigl/libigl-legacy.git`.
 
-1. Suppose we have a parent project with libigl submodule in `external/libigl/`.
-2. Clone the parent repository
-    ```
-    git clone git@github.com:gabuzome/libigl-example-project.git
-    ```
-3. Try to initialize the submodules with the command
-    ```
-    git submodule update --init --recursive
-    ```
-   this should produces the error you see above.
-
-#### Steps to fix the problem (execute *in that order*):
-
-1. Delete the local folder that contained the submodule
-   ```
-   rm -rf external/libigl/
-   ```
-2. Delete the corrupted copy in the `.git/` folder
-   ```
-   rm -rf .git/modules/external/libigl/
-   ```
-3. Change the `libigl/libigl.git` to `libigl/libigl-legacy.git` in the `.gitmodules` file. 
-> Or issue, on Linux
->    ```
->    sed -i 's|libigl/libigl.git|libigl/libigl-legacy.git|' .gitmodules
->    ```
-> Or issue, on Mac OS X
->    ```
->    sed -i '' 's|libigl/libigl.git|libigl/libigl-legacy.git|' .gitmodules
->    ```
+> Otherwise (if you're not using github or you're working with an already locally cloned project), you can issue *in order*:
+> 
+>
+>
+> 1. Delete the local folder that contained the submodule
+>   ```
+>   rm -rf external/libigl/
+>   ```
+> 2. Delete the corrupted copy in the `.git/` folder
+>   ```
+>   rm -rf .git/modules/external/libigl/
+>   ```
+> 3. Change the `libigl/libigl.git` to `libigl/libigl-legacy.git` in the `.gitmodules` file. 
+> > Or issue, on Linux
+> >    ```
+> >    sed -i 's|libigl/libigl.git|libigl/libigl-legacy.git|' .gitmodules
+> >    ```
+> > Or issue, on Mac OS X
+> >    ```
+> >    sed -i '' 's|libigl/libigl.git|libigl/libigl-legacy.git|' .gitmodules
+> >    ```
 > 
 4. Update local configuration of your submodule repos with the new URL
     ```
